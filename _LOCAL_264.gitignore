@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Gradle files
 .gradle/
 build/
@@ -31,6 +32,7 @@ google-services.json
 
 # Android Profiling
 *.hprof
+=======
 *.iml
 .gradle
 /local.properties
@@ -46,3 +48,4 @@ google-services.json
 .externalNativeBuild
 .cxx
 local.properties
+>>>>>>> Aula 1 do projeto de estados básicos
