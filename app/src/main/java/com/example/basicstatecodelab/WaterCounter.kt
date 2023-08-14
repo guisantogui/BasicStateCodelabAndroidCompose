@@ -1,6 +1,7 @@
 package com.example.basicstatecodelab
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
@@ -16,39 +17,56 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun WaterCounter(modifier: Modifier = Modifier){
+fun WaterCounter(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        
+
         var count by remember { mutableStateOf(0) }
 
-        if(count > 0){
-            Text(text = "You've had $count glasses!",
-                modifier = Modifier.padding(16.dp))
-        }
-        else{
-            Text(text = "Start drinking water now!",
-                modifier = Modifier.padding(16.dp))
+        if (count > 0) {
+            var showTask by remember { mutableStateOf(true) }
+            if (showTask) {
+                WellnessTaskItem(
+                    taskName = "Have you taken your 15 minute walk today?",
+                    onClose = { showTask = false }
+                )
+            }
+
+            Text(
+                text = "You've had $count glasses!",
+                modifier = Modifier.padding(16.dp)
+            )
+        } else {
+            Text(
+                text = "Start drinking water now!",
+                modifier = Modifier.padding(16.dp)
+            )
         }
 
-        ElevatedButton(
-            onClick = { count++ },
-            modifier = Modifier.padding(top = 8.dp),
-            enabled = count <10
+        Row(
+            modifier = Modifier.padding(top = 8.dp)
         ) {
-            Text(text = "Add one glass!")
+            ElevatedButton(
+                onClick = { count++ },
+                modifier = Modifier.padding(),
+                enabled = count < 10
+            ) {
+                Text(text = "Add one glass!")
+            }
+
+            ElevatedButton(
+                onClick = { count = 0 },
+                modifier = Modifier.padding(start = 8.dp),
+                enabled = count > 0
+            ) {
+                Text(text = "Clear count")
+            }
         }
 
-        ElevatedButton(
-            onClick = { count = 0 },
-            modifier = Modifier.padding(top = 8.dp),
-            enabled = count > 0
-        ) {
-            Text(text = "Clear count")
-        }
+
     }
 
 }
@@ -56,6 +74,6 @@ fun WaterCounter(modifier: Modifier = Modifier){
 
 @Preview
 @Composable
-fun WaterCounterPreview(){
+fun WaterCounterPreview() {
     WaterCounter()
 }
